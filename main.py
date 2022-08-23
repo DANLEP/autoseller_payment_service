@@ -6,7 +6,7 @@ from routes.index import payment_method
 
 app = FastAPI()
 
-app.include_router(payment_method, prefix="/payment_methods",)
+app.include_router(payment_method, prefix="/payment_method",)
 
 
 @app.get('/subscription_type')

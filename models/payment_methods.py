@@ -9,6 +9,5 @@ payment_methods = Table(
     Column('address', String(45)),
     Column('currency', String(45)),
     Column('api_key', String(45)),
-    Column('api_key', String(45)),
     Column('is_active', SmallInteger),
 )
