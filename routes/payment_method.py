@@ -41,3 +41,14 @@ def update_payment_method(id: int, pm: PaymentMethod):
         is_active=pm.is_active
     ).where(payment_methods.c.id == id))
     return conn.execute(payment_methods.select().where(payment_methods.c.id == id)).fetchone()
+
+
+@payment_method.get("/{id}/toggle")
+def toggle_payment_method(id: int):
+    pm = get_payment_method(id)
+    if pm['is_active']:
+        toggle = 0
+    else:
+        toggle = 1
+    conn.execute(payment_methods.update().values(is_active=toggle).where(payment_methods.c.id == id))
+    return get_payment_method(id)
