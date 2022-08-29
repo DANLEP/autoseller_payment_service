@@ -1,8 +1,9 @@
 from pydantic import BaseModel
+from pydantic.fields import Optional, Field
 
 
 class PaymentMethod(BaseModel):
-    id: int
+    id: Optional[int]
     name: str
     network: str
     address: str

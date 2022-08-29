@@ -3,34 +3,12 @@ from fastapi import FastAPI
 from starlette.requests import Request
 
 from routes.index import payment_method
+from routes.subscription import subscription, subscription_on_startup
 
 app = FastAPI()
 
-app.include_router(payment_method, prefix="/payment_method",)
-
-
-@app.get('/subscription_type')
-def subscription_type():
-    return [
-        {
-            'id': 0,
-            'name': '1 month',
-            'days': 30,
-            'price': 8.99
-        },
-        {
-            'id': 1,
-            'name': '3 month',
-            'days': 90,
-            'price': 19.99
-        },
-        {
-            'id': 2,
-            'name': '12 month',
-            'days': 360,
-            'price': 59.99
-        }
-    ]
+app.include_router(payment_method, prefix="/payment_method")
+app.include_router(subscription, prefix="/subscription")
 
 
 @app.post('/create_invoice')
@@ -40,6 +18,11 @@ async def create_invoice(request: Request):
     return {
 
     }
+
+
+@app.on_event("startup")
+def startup_event():
+    subscription_on_startup()
 
 
 if __name__ == '__main__':
