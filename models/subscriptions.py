@@ -6,6 +6,6 @@ subscriptions = Table(
     'subscription', meta,
     Column('id', Integer, primary_key=True),
     Column('name', String(45)),
-    Column('days', Integer),
+    Column('days', Integer, unique=True),
     Column('price', Float),
 )
